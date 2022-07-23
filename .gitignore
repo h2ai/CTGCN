@@ -1,12 +1,3 @@
-data/*
-!dataset/dblp_four_area
-!dataset/dblp_four_area_s
-!dataset/dblp_four_area_homo
-!dataset/dblp_four_area_s_homo
-!dataset/yelp
-!dataset/yelp_s
-!dataset/yelp_homo
-!dataset/yelp_s_homo
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]
