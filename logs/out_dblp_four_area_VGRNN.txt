@@ -1,0 +1,24 @@
+Starting time: 07/28/2022, 22:42:46
+args: Namespace(config=['config/dblp_four_area.json'], task='embedding', method='VGRNN')
+{'base_path': 'data/dblp_four_area', 'origin_folder': '1.format', 'embed_folder': '2.embedding/VGRNN', 'model_folder': 'CTGCN/model', 'model_file': 'vgrnn', 'node_file': 'nodes_set/nodes.csv', 'file_sep': '\t', 'start_idx': 0, 'end_idx': -1, 'duration': 7, 'embed_dim': 128, 'use_cuda': True, 'thread_num': 30, 'epoch': 50, 'lr': 0.001, 'batch_size': 128, 'load_model': False, 'shuffle': True, 'export': True, 'record_time': False, 'hid_dim': 128, 'rnn_layer_num': 1, 'eps': 1e-10, 'conv_type': 'GCN', 'bias': False, 'weight_decay': 0.0005, 'learning_type': 'U-own', 'train_ratio': 0.5, 'val_ratio': 0.3, 'test_ratio': 0.2}
+start_idx =  0 , end_idx =  7 , duration =  7
+start VGRNN embedding!
+idx =  0 , duration =  7
+start learning embedding!
+start unsupervised training!
+Traceback (most recent call last):
+  File "/user/hoang.le1/gitrepo/CTGCN/main.py", line 133, in <module>
+    main(sys.argv)
+  File "/user/hoang.le1/gitrepo/CTGCN/main.py", line 110, in main
+    embedding_task(args.method, param_dict)
+  File "/user/hoang.le1/gitrepo/CTGCN/main.py", line 61, in embedding_task
+    gnn_embedding(method, args)
+  File "/user/hoang.le1/gitrepo/CTGCN/train.py", line 282, in gnn_embedding
+    cost_time = trainer.learn_embedding(adj_list, x_list, edge_list, node_dist_list, epoch=epoch, batch_size=batch_size, lr=lr, start_idx=idx, weight_decay=weight_decay,
+  File "/user/hoang.le1/gitrepo/CTGCN/embedding.py", line 347, in learn_embedding
+    loss = loss_model(loss_input_list)
+  File "/user/hoang.le1/miniconda3/envs/na2/lib/python3.9/site-packages/torch/nn/modules/module.py", line 1110, in _call_impl
+    return forward_call(*input, **kwargs)
+  File "/user/hoang.le1/gitrepo/CTGCN/metrics.py", line 144, in forward
+    nll_loss += self.__nll_bernoulli(dec_list[time], adj_list[time].to_dense())
+RuntimeError: CUDA out of memory. Tried to allocate 5.32 GiB (GPU 1; 47.54 GiB total capacity; 40.31 GiB already allocated; 4.88 GiB free; 40.73 GiB reserved in total by PyTorch) If reserved memory is >> allocated memory try setting max_split_size_mb to avoid fragmentation.  See documentation for Memory Management and PYTORCH_CUDA_ALLOC_CONF

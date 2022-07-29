@@ -1,0 +1,30 @@
+Starting time: 07/28/2022, 17:37:30
+args: Namespace(config=['config/yelp.json'], task='embedding', method='VGRNN')
+{'base_path': 'data/yelp', 'origin_folder': '1.format', 'embed_folder': '2.embedding/VGRNN', 'model_folder': 'CTGCN/model', 'model_file': 'vgrnn', 'node_file': 'nodes_set/nodes.csv', 'file_sep': '\t', 'start_idx': 0, 'end_idx': -1, 'duration': 7, 'embed_dim': 128, 'use_cuda': True, 'thread_num': 30, 'epoch': 30, 'lr': 0.001, 'batch_size': 128, 'load_model': False, 'shuffle': True, 'export': True, 'record_time': False, 'hid_dim': 128, 'rnn_layer_num': 1, 'eps': 1e-10, 'conv_type': 'GCN', 'bias': True, 'weight_decay': 0.0005, 'learning_type': 'U-own', 'train_ratio': 0.5, 'val_ratio': 0.3, 'test_ratio': 0.2}
+start_idx =  0 , end_idx =  7 , duration =  7
+start VGRNN embedding!
+idx =  0 , duration =  7
+start learning embedding!
+start unsupervised training!
+Traceback (most recent call last):
+  File "/user/hoang.le1/gitrepo/CTGCN/main.py", line 133, in <module>
+    main(sys.argv)
+  File "/user/hoang.le1/gitrepo/CTGCN/main.py", line 110, in main
+    embedding_task(args.method, param_dict)
+  File "/user/hoang.le1/gitrepo/CTGCN/main.py", line 61, in embedding_task
+    gnn_embedding(method, args)
+  File "/user/hoang.le1/gitrepo/CTGCN/train.py", line 282, in gnn_embedding
+    cost_time = trainer.learn_embedding(adj_list, x_list, edge_list, node_dist_list, epoch=epoch, batch_size=batch_size, lr=lr, start_idx=idx, weight_decay=weight_decay,
+  File "/user/hoang.le1/gitrepo/CTGCN/embedding.py", line 346, in learn_embedding
+    loss_input_list, output_list, hx = self.get_model_res(adj_list, x_list, edge_list, node_dist_list, model, batch_indices, hx)
+  File "/user/hoang.le1/gitrepo/CTGCN/embedding.py", line 305, in get_model_res
+    embedding_list, hx, loss_data_list = model(x_list, edge_list, hx)
+  File "/user/hoang.le1/miniconda3/envs/na2/lib/python3.9/site-packages/torch/nn/modules/module.py", line 1110, in _call_impl
+    return forward_call(*input, **kwargs)
+  File "/user/hoang.le1/gitrepo/CTGCN/baseline/vgrnn.py", line 513, in forward
+    dec_t = self.dec(z_t)
+  File "/user/hoang.le1/miniconda3/envs/na2/lib/python3.9/site-packages/torch/nn/modules/module.py", line 1110, in _call_impl
+    return forward_call(*input, **kwargs)
+  File "/user/hoang.le1/gitrepo/CTGCN/baseline/vgrnn.py", line 415, in forward
+    x = torch.mm(inp, x)
+RuntimeError: CUDA out of memory. Tried to allocate 4.65 GiB (GPU 1; 47.54 GiB total capacity; 30.51 GiB already allocated; 4.21 GiB free; 30.84 GiB reserved in total by PyTorch) If reserved memory is >> allocated memory try setting max_split_size_mb to avoid fragmentation.  See documentation for Memory Management and PYTORCH_CUDA_ALLOC_CONF
