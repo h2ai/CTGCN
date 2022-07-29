@@ -1,0 +1,31 @@
+Starting time: 07/29/2022, 18:43:17
+args: Namespace(config=['config/yelp_s.json'], task='embedding', method='VGRNN')
+{'base_path': 'data/yelp_s', 'origin_folder': '1.format', 'embed_folder': '2.embedding/VGRNN', 'model_folder': 'CTGCN/model', 'model_file': 'vgrnn', 'node_file': 'nodes_set/nodes.csv', 'file_sep': '\t', 'start_idx': 0, 'end_idx': -1, 'duration': 7, 'embed_dim': 128, 'use_cuda': True, 'thread_num': 30, 'epoch': 50, 'lr': 0.001, 'batch_size': 128, 'load_model': False, 'shuffle': True, 'export': True, 'record_time': False, 'hid_dim': 128, 'rnn_layer_num': 1, 'eps': 1e-10, 'conv_type': 'GCN', 'bias': True, 'weight_decay': 0.0005, 'learning_type': 'S-node', 'nlabel_folder': 'nodes_label', 'cls_file': 'vgrnn_cls', 'cls_bias': True, 'cls_hid_dim': 64, 'cls_layer_num': 1, 'cls_activate_type': 'L', 'train_ratio': 0.1, 'val_ratio': 0.1, 'test_ratio': 0.8}
+start_idx =  0 , end_idx =  7 , duration =  7
+start VGRNN embedding!
+idx =  0 , duration =  7
+start supervised training!
+Traceback (most recent call last):
+  File "/user/hoang.le1/gitrepo/CTGCN/main.py", line 133, in <module>
+    main(sys.argv)
+  File "/user/hoang.le1/gitrepo/CTGCN/main.py", line 110, in main
+    embedding_task(args.method, param_dict)
+  File "/user/hoang.le1/gitrepo/CTGCN/main.py", line 61, in embedding_task
+    gnn_embedding(method, args)
+  File "/user/hoang.le1/gitrepo/CTGCN/train.py", line 294, in gnn_embedding
+    cost_time = trainer.learn_embedding(adj_list, x_list, node_labels, edge_labels, edge_list, node_dist_list, learning_type=learning_type, epoch=epoch, batch_size=batch_size,
+  File "/user/hoang.le1/gitrepo/CTGCN/embedding.py", line 246, in learn_embedding
+    loss_train, acc_train, auc_train = loss_model(loss_input_list, label_train)
+  File "/user/hoang.le1/miniconda3/envs/na2/lib/python3.9/site-packages/torch/nn/modules/module.py", line 1110, in _call_impl
+    return forward_call(*input, **kwargs)
+  File "/user/hoang.le1/gitrepo/CTGCN/metrics.py", line 244, in forward
+    vae_loss = self.vae_loss(vae_data_list)
+  File "/user/hoang.le1/miniconda3/envs/na2/lib/python3.9/site-packages/torch/nn/modules/module.py", line 1110, in _call_impl
+    return forward_call(*input, **kwargs)
+  File "/user/hoang.le1/gitrepo/CTGCN/metrics.py", line 144, in forward
+    nll_loss += self.__nll_bernoulli(dec_list[time], adj_list[time].to_dense())
+  File "/user/hoang.le1/gitrepo/CTGCN/metrics.py", line 159, in __nll_bernoulli
+    nll_loss_mat = F.binary_cross_entropy_with_logits(input=logits, target=target_adj_dense, pos_weight=posw, reduction='none')
+  File "/user/hoang.le1/miniconda3/envs/na2/lib/python3.9/site-packages/torch/nn/functional.py", line 3132, in binary_cross_entropy_with_logits
+    return torch.binary_cross_entropy_with_logits(input, target, weight, pos_weight, reduction_enum)
+RuntimeError: CUDA out of memory. Tried to allocate 4.65 GiB (GPU 1; 47.54 GiB total capacity; 44.56 GiB already allocated; 719.56 MiB free; 44.91 GiB reserved in total by PyTorch) If reserved memory is >> allocated memory try setting max_split_size_mb to avoid fragmentation.  See documentation for Memory Management and PYTORCH_CUDA_ALLOC_CONF

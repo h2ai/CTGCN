@@ -1,0 +1,32 @@
+Starting time: 07/29/2022, 18:43:43
+args: Namespace(config=['config/yelp_s.json'], task='embedding', method='DynRNN')
+{'base_path': 'data/yelp_s', 'origin_folder': '1.format', 'embed_folder': '2.embedding/DynRNN', 'model_folder': 'CTGCN/model', 'model_file': 'dynrnn', 'node_file': 'nodes_set/nodes.csv', 'file_sep': '\t', 'start_idx': 1, 'end_idx': -1, 'duration': 2, 'embed_dim': 128, 'use_cuda': True, 'thread_num': 30, 'epoch': 50, 'lr': 0.001, 'batch_size': 128, 'load_model': False, 'shuffle': True, 'export': True, 'record_time': False, 'n_units': [300, 100], 'look_back': 1, 'beta': 5, 'nu1': 1e-06, 'nu2': 1e-06, 'bias': True}
+start DynRNN embedding!
+idx =  1
+start learning embedding!
+Traceback (most recent call last):
+  File "/user/hoang.le1/gitrepo/CTGCN/main.py", line 133, in <module>
+    main(sys.argv)
+  File "/user/hoang.le1/gitrepo/CTGCN/main.py", line 110, in main
+    embedding_task(args.method, param_dict)
+  File "/user/hoang.le1/gitrepo/CTGCN/main.py", line 57, in embedding_task
+    dyngem_embedding(method, args)
+  File "/user/hoang.le1/gitrepo/CTGCN/baseline/dynAE.py", line 425, in dyngem_embedding
+    cost_time = trainer.learn_embedding(adj_list, epoch=epoch, lr=lr, idx=idx, model_file=model_file, load_model=load_model, export=export)
+  File "/user/hoang.le1/gitrepo/CTGCN/baseline/dynAE.py", line 300, in learn_embedding
+    model, loss_model, optimizer, _ = self.prepare(load_model, model_file, classifier_file=None, lr=lr, weight_decay=weight_decay)
+  File "/user/hoang.le1/gitrepo/CTGCN/embedding.py", line 63, in prepare
+    self.model = self.model.to(self.device)
+  File "/user/hoang.le1/miniconda3/envs/na2/lib/python3.9/site-packages/torch/nn/modules/module.py", line 907, in to
+    return self._apply(convert)
+  File "/user/hoang.le1/miniconda3/envs/na2/lib/python3.9/site-packages/torch/nn/modules/module.py", line 578, in _apply
+    module._apply(fn)
+  File "/user/hoang.le1/miniconda3/envs/na2/lib/python3.9/site-packages/torch/nn/modules/module.py", line 578, in _apply
+    module._apply(fn)
+  File "/user/hoang.le1/miniconda3/envs/na2/lib/python3.9/site-packages/torch/nn/modules/module.py", line 578, in _apply
+    module._apply(fn)
+  File "/user/hoang.le1/miniconda3/envs/na2/lib/python3.9/site-packages/torch/nn/modules/rnn.py", line 189, in _apply
+    self.flatten_parameters()
+  File "/user/hoang.le1/miniconda3/envs/na2/lib/python3.9/site-packages/torch/nn/modules/rnn.py", line 175, in flatten_parameters
+    torch._cudnn_rnn_flatten_weight(
+RuntimeError: cuDNN error: CUDNN_STATUS_INVALID_VALUE
