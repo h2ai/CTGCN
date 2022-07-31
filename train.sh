@@ -1,9 +1,9 @@
 echo "yelp"
 name=yelp
-python3 main.py --config=config/$name.json --task=preprocessing --method=CTGCN-C
+# python3 main.py --config=config/$name.json --task=preprocessing --method=CTGCN-C
 # python3 main.py --config=config/$name.json --task=embedding --method=VGRNN > ./logs/out_yelp_VGRNN.txt 2>&1
 python3 main.py --config=config/$name.json --task=embedding --method=DynGEM > ./logs/out_yelp_DynGEM.txt 2>&1
-python3 main.py --config=config/$name.json --task=embedding --method=DynAE > ./logs/out_yelp_DynAE.txt 2>&1
+# python3 main.py --config=config/$name.json --task=embedding --method=DynAE > ./logs/out_yelp_DynAE.txt 2>&1
 python3 main.py --config=config/$name.json --task=embedding --method=DynRNN > ./logs/out_yelp_DynRNN.txt 2>&1
 python3 main.py --config=config/$name.json --task=embedding --method=DynAERNN > ./logs/out_yelp_DynAERNN 2>&1 --> Done
 
@@ -18,7 +18,7 @@ python3 main.py --config=config/$name.json --task=embedding --method=DynAERNN > 
 
 echo "dblp_four_area"
 name=dblp_four_area
-python3 main.py --config=config/$name.json --task=preprocessing --method=CTGCN-C
+# python3 main.py --config=config/$name.json --task=preprocessing --method=CTGCN-C
 python3 main.py --config=config/$name.json --task=embedding --method=VGRNN > ./logs/out_dblp_four_area_VGRNN.txt 2>&1
 python3 main.py --config=config/$name.json --task=embedding --method=DynGEM > ./logs/out_dblp_four_area_DynGEM.txt 2>&1
 python3 main.py --config=config/$name.json --task=embedding --method=DynAE > ./logs/out_dblp_four_area_DynAE.txt 2>&1

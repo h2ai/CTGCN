@@ -318,7 +318,9 @@ class DynamicEmbedding(BaseEmbedding):
         print('finish training!')
         print('start predicting!')
         # This needs the last look_back number of graphs to make prediction
-        embedding_mat, next_adj = self.batch_predictor.predict(model, adj_list[train_size:])
+        # HOTFIX
+        model_pred = model.to('cuda:2')
+        embedding_mat, next_adj = self.batch_predictor.predict(model_pred, adj_list[train_size:])
         print('end predicting!')
         en = time.time()
         cost_time = en - st
@@ -414,11 +416,13 @@ def dyngem_embedding(method, args):
         if method == 'DynGEM':
             loss = DynGEMLoss(alpha=alpha, beta=beta, nu1=nu1, nu2=nu2, device=device)
             batch_generator = DynGEMBatchGenerator(node_list=node_list, batch_size=batch_size, beta=beta, shuffle=shuffle, has_cuda=has_cuda, device=device)
-            batch_predictor = DynGEMBatchPredictor(node_list=node_list, batch_size=batch_size, has_cuda=has_cuda, device=device)
+            # HOTFIX
+            batch_predictor = DynGEMBatchPredictor(node_list=node_list, batch_size=batch_size, has_cuda=has_cuda, device='cuda:2')
         else:
             loss = DynGraph2VecLoss(beta=beta, nu1=nu1, nu2=nu2, device=device)
             batch_generator = BatchGenerator(node_list=node_list, batch_size=batch_size, look_back=look_back, beta=beta, shuffle=shuffle, has_cuda=has_cuda, device=device)
-            batch_predictor = BatchPredictor(node_list=node_list, batch_size=batch_size, has_cuda=has_cuda, device=device)
+            # HOTFIX
+            batch_predictor = BatchPredictor(node_list=node_list, batch_size=batch_size, has_cuda=has_cuda, device='cuda:2')
         trainer = DynamicEmbedding(base_path=base_path, origin_folder=origin_folder, embedding_folder=embedding_folder, 
                                    node_list=nodes_set['node'].tolist(), model=model, loss=loss, batch_generator=batch_generator, 
                                    batch_predictor=batch_predictor, model_folder=model_folder, has_cuda=has_cuda, device=device)
