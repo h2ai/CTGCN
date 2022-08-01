@@ -406,8 +406,9 @@ def dyngem_embedding(method, args):
     time_list = []
 
     print('start ' + method + ' embedding!')
-    for idx in range(start_idx, end_idx):
-#     for idx in range(end_idx - 1, end_idx):
+    # for idx in range(start_idx, end_idx):
+    # HOTFIX TIME
+    for idx in range(5, end_idx):
         print('idx = ', idx)
         # As DynGEM, DynAE, DynRNN, DynAERNN use original adjacent matrices as their input, so normalization is not necessary(normalization=Fals, add_eye=False) !
         adj_list = data_loader.get_date_adj_list(origin_base_path, start_idx=idx - duration + 1, duration=duration, sep=file_sep, normalize=False, add_eye=False, data_type='matrix')
